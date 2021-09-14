@@ -22,14 +22,14 @@ func (hnd *Handler) InitWeatherRoutes() *gin.Engine {
 		authWeather.POST("/sing-in", hnd.SignIn)
 	}
 
-	getWeather := weatherRouter.Group("/weather", hnd.userIdentity)
+	getWeather := weatherRouter.Group("/weather", hnd.agentIdentity)
 	{
-		getWeather.POST("/:city/:mode", hnd.getWeatherInCity)
+		getWeather.POST("/:city", hnd.getWeatherInCity)
 
 		historyWeather := getWeather.Group("/history")
 		{
-			historyWeather.GET("/:city", hnd.GetAllHistoryCity)
-			historyWeather.GET("/:moment", hnd.GetAllHistoryMoment)
+			historyWeather.GET("/location/:city", hnd.GetAllHistoryCity)
+			historyWeather.GET("/moment/:day", hnd.GetAllHistoryMoment)
 		}
 
 	}
