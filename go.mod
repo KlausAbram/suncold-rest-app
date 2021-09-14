@@ -3,6 +3,7 @@ module github.com/klaus-abram/suncold-restful-app
 go 1.16
 
 require (
+	github.com/briandowns/openweathermap v0.16.0 // indirect
 	github.com/gin-gonic/gin v1.7.4 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/golang-migrate/migrate v3.5.4+incompatible // indirect

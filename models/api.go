@@ -9,17 +9,18 @@ type ModWeatherSetting string
 type Location string
 
 type WeatherParams struct {
-	Temperature int
-	Pressure    int
-	Rain        string
-	Cloud       string
-	Wind        string
+	Temperature float64 `json:"temperature"`
+	Pressure    float64 `json:"pressure"`
+	Rain        float64 `json:"rain"`
+	Cloud       int     `json:"cloud"`
+	WindSpeed   float64 `json:"wind_speed"`
+	Humidity    int     `json:"humidity"`
 }
 
 type WeatherRequest struct {
 	Id    int
 	Date  string
-	Mod   string ``
+	Mod   string
 	Agent string
 }
 

@@ -1,15 +1,10 @@
-package init
+package run
 
 import (
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
-
-type DataBaseConfig struct {
-	Port, SSLMode, Password string
-	Username, Name, Host    string
-}
 
 // SetLoggingConfig SetVariableLoggingConfig Set configs/env and logging-mode
 // make in main

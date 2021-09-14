@@ -1,10 +1,11 @@
-package init
+package run
 
 import (
 	"context"
 	"github.com/jmoiron/sqlx"
+	"github.com/klaus-abram/suncold-restful-app/api/external/owmadapter"
+	"github.com/klaus-abram/suncold-restful-app/api/external/storage"
 	"github.com/klaus-abram/suncold-restful-app/api/handler"
-	"github.com/klaus-abram/suncold-restful-app/api/storage"
 	"github.com/klaus-abram/suncold-restful-app/api/usecase"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -42,7 +43,8 @@ func (srv *WeatherServer) SunsetWeatherServer(ctx context.Context) error {
 func (srv *WeatherServer) RunToShutdownServer(db *sqlx.DB) {
 
 	store := storage.NewStorage(db)
-	cases := usecase.NewUseCase(store)
+	adapter := owmadapter.NewOwmAdapter()
+	cases := usecase.NewUseCase(adapter, store)
 	handlers := handler.NewHandler(cases)
 
 	go func() {
