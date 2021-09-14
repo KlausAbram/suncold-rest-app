@@ -18,6 +18,7 @@ type Authorisation interface {
 }
 
 type WeatherSearching interface {
+	PostWeatherData(agentId int, input models.WeatherParams) error
 }
 
 type GettingWeatherHistory interface {
@@ -31,6 +32,7 @@ type Storage struct {
 
 func NewStorage(db *sqlx.DB) *Storage {
 	return &Storage{
-		Authorisation: NewAuthStorage(db),
+		Authorisation:    NewAuthStorage(db),
+		WeatherSearching: NewWeatherStorage(db),
 	}
 }

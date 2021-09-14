@@ -7,7 +7,7 @@ import (
 )
 
 func (hnd *Handler) SignUp(ctx *gin.Context) {
-	var store models.Agent
+	var store *models.Agent
 
 	if err := ctx.BindJSON(&store); err != nil {
 		newErrorJSONResponse(ctx, http.StatusBadRequest, "invalid request body")
@@ -33,7 +33,7 @@ func (hnd *Handler) SignIn(ctx *gin.Context) {
 		return
 	}
 
-	token, err := hnd.cases.Authorisation.CreateJWT(requestData.Username, requestData.Password)
+	token, err := hnd.cases.Authorisation.CreateJWT(requestData.AgentName, requestData.Password)
 	if err != nil {
 		newErrorJSONResponse(ctx, http.StatusInternalServerError, err.Error())
 		return

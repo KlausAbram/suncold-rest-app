@@ -2,9 +2,10 @@ package usecase
 
 import (
 	"crypto/sha1"
+	"errors"
 	"fmt"
 	"github.com/golang-jwt/jwt"
-	"github.com/klaus-abram/suncold-restful-app/api/storage"
+	"github.com/klaus-abram/suncold-restful-app/api/external/storage"
 	"github.com/klaus-abram/suncold-restful-app/models"
 	"os"
 	"time"
@@ -46,6 +47,27 @@ func (ac *AuthCase) CreateJWT(username, password string) (string, error) {
 	})
 
 	return token.SignedString([]byte(os.Getenv("JWT_KEY")))
+}
+
+func (ac *AuthCase) ParseJWT(tokenJWT string) (int, error) {
+	tokenFromJWT, err := jwt.ParseWithClaims(tokenJWT, &tokenClaims{}, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errors.New("invalid signing method")
+		}
+
+		return []byte(os.Getenv("JWT_KEY")), nil
+	})
+
+	if err != nil {
+		return 0, nil
+	}
+
+	claims, ok := tokenFromJWT.Claims.(*tokenClaims)
+	if !ok {
+		return 0, errors.New("token claims are not of type *tokenClaims*")
+	}
+
+	return claims.AgentId, nil
 }
 
 func HashPassword(password string) string {
