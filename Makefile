@@ -15,3 +15,5 @@ migrate-down:
 exec-db:
 	docker exec -it weather-db  /bin/bash
 
+run-server: 
+	go run cmd/weather-app/main.go
