@@ -14,7 +14,7 @@ const (
 )
 
 type requestSignInData struct {
-	AgentName string `json:"agentname" binding:"required"`
+	AgentName string `json:"agent_name" binding:"required"`
 	Password  string `json:"password" binding:"required"`
 }
 

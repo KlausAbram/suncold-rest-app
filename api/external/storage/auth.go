@@ -2,6 +2,7 @@ package storage
 
 import (
 	"fmt"
+
 	"github.com/jmoiron/sqlx"
 	"github.com/klaus-abram/suncold-restful-app/models"
 )
@@ -14,7 +15,7 @@ func NewAuthStorage(db *sqlx.DB) *AuthStorage {
 	return &AuthStorage{db: db}
 }
 
-func (as *AuthStorage) CreateAgent(agent *models.Agent) (int, error) {
+func (as *AuthStorage) CreateAgent(agent models.Agent) (int, error) {
 	var id int
 
 	query := fmt.Sprintf("INSERT INTO %s (name, agent_name, password_hash) values ($1, $2, $3) RETURNING id", agentsTable)

@@ -7,7 +7,7 @@ import (
 )
 
 type Authorisation interface {
-	CreateAgent(agent *models.Agent) (int, error)
+	CreateAgent(agent models.Agent) (int, error)
 	CreateJWT(agentname, password string) (string, error)
 	ParseJWT(token string) (int, error)
 }
@@ -25,9 +25,9 @@ type UseCase struct {
 	GettingWeatherHistory
 }
 
-func NewUseCase(adapter *owmadapter.Adapter, storage *storage.Storage) *UseCase {
+func NewUseCase(adapter *owmadapter.OwmAdapter, store *storage.Storage) *UseCase {
 	return &UseCase{
-		Authorisation:    NewAuthCase(storage.Authorisation),
-		WeatherSearching: NewWeatherCase(adapter, storage.WeatherSearching),
+		Authorisation:    NewAuthCase(&store.Authorisation),
+		WeatherSearching: NewWeatherCase(adapter, store.WeatherSearching),
 	}
 }

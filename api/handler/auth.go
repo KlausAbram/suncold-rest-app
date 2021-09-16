@@ -1,20 +1,21 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/klaus-abram/suncold-restful-app/models"
-	"net/http"
 )
 
 func (hnd *Handler) SignUp(ctx *gin.Context) {
-	var store *models.Agent
+	var agent models.Agent
 
-	if err := ctx.BindJSON(&store); err != nil {
+	if err := ctx.BindJSON(&agent); err != nil {
 		newErrorJSONResponse(ctx, http.StatusBadRequest, "invalid request body")
 		return
 	}
 
-	id, err := hnd.cases.Authorisation.CreateAgent(store)
+	id, err := hnd.cases.Authorisation.CreateAgent(agent)
 	if err != nil {
 		newErrorJSONResponse(ctx, http.StatusInternalServerError, err.Error())
 		return

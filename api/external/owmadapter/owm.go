@@ -1,20 +1,21 @@
 package owmadapter
 
 import (
+	"os"
+
 	"github.com/briandowns/openweathermap"
 	"github.com/klaus-abram/suncold-restful-app/models"
-	"os"
 )
 
-type WeatherAdapter struct {
+type WeatherKeyStorage struct {
 	apiWeatherKey string
 }
 
-func NewWeatherAdapter() *WeatherAdapter {
-	return &WeatherAdapter{apiWeatherKey: os.Getenv("OWM_API_KEY")}
+func NewWeatherKeyStorage() *WeatherKeyStorage {
+	return &WeatherKeyStorage{apiWeatherKey: os.Getenv("OWM_API_KEY")}
 }
 
-func (adp *WeatherAdapter) GetOwmWeatherData(location string) (*models.WeatherParams, error) {
+func (adp *WeatherKeyStorage) GetOwmWeatherData(location string) (*models.WeatherParams, error) {
 	data, err := openweathermap.NewCurrent(owmSet.Lang, owmSet.Metric, adp.apiWeatherKey)
 	if err != nil {
 		return nil, err

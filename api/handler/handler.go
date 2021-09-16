@@ -18,8 +18,8 @@ func (hnd *Handler) InitWeatherRoutes() *gin.Engine {
 
 	authWeather := weatherRouter.Group("/auth")
 	{
-		authWeather.POST("/sing-up", hnd.SignUp)
-		authWeather.POST("/sing-in", hnd.SignIn)
+		authWeather.POST("/sign-up", hnd.SignUp)
+		authWeather.POST("/sign-in", hnd.SignIn)
 	}
 
 	getWeather := weatherRouter.Group("/weather", hnd.agentIdentity)

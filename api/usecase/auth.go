@@ -4,11 +4,12 @@ import (
 	"crypto/sha1"
 	"errors"
 	"fmt"
+	"os"
+	"time"
+
 	"github.com/golang-jwt/jwt"
 	"github.com/klaus-abram/suncold-restful-app/api/external/storage"
 	"github.com/klaus-abram/suncold-restful-app/models"
-	"os"
-	"time"
 )
 
 const tokenTTL = 12 * time.Hour
@@ -22,11 +23,11 @@ type AuthCase struct {
 	storage storage.Authorisation
 }
 
-func NewAuthCase(storage storage.Authorisation) *AuthCase {
-	return &AuthCase{storage: storage}
+func NewAuthCase(storage *storage.Authorisation) *AuthCase {
+	return &AuthCase{storage: *storage}
 }
 
-func (ac *AuthCase) CreateAgent(agent *models.Agent) (int, error) {
+func (ac *AuthCase) CreateAgent(agent models.Agent) (int, error) {
 	agent.Password = HashPassword(agent.Password)
 	return ac.storage.CreateAgent(agent)
 

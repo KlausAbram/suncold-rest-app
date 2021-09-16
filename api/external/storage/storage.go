@@ -13,7 +13,7 @@ const (
 )
 
 type Authorisation interface {
-	CreateAgent(agent *models.Agent) (int, error)
+	CreateAgent(agent models.Agent) (int, error)
 	GetAgent(agentname, password string) (int, error)
 }
 

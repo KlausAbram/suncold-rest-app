@@ -7,11 +7,11 @@ import (
 )
 
 type WeatherCase struct {
-	adapter *owmadapter.Adapter
+	adapter *owmadapter.OwmAdapter
 	store   storage.WeatherSearching
 }
 
-func NewWeatherCase(adapter *owmadapter.Adapter, store storage.WeatherSearching) *WeatherCase {
+func NewWeatherCase(adapter *owmadapter.OwmAdapter, store storage.WeatherSearching) *WeatherCase {
 	return &WeatherCase{
 		adapter: adapter,
 		store:   store,
@@ -24,8 +24,9 @@ func (cs *WeatherCase) GetWeatherCity(agentId int, location string) (*models.Wea
 		return nil, err
 	}
 
-	/*if err := cs.store.PostWeatherData(*dataParams); err != nil {
+	if err := cs.store.PostWeatherData(agentId, *dataParams); err != nil {
 		return nil, err
-	} */
+	}
+
 	return dataParams, nil
 }
