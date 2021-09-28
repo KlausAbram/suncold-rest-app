@@ -19,6 +19,7 @@ type WeatherSearching interface {
 type GettingWeatherHistory interface {
 	GetHistoryLocation(location string) ([]models.WeatherResponse, error)
 	GetHistoryMoment(moment string) ([]models.WeatherRequest, error)
+	GetAgentHistory(agent string) ([]models.WeatherRequest, error)
 }
 
 type GettingForecastByDays interface {

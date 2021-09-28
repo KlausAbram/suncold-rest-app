@@ -7,10 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (hnd *Handler) getAgentHistory(ctx *gin.Context) {
-
-}
-
 func (hnd *Handler) GetAllHistoryCity(ctx *gin.Context) {
 	location := ctx.Param("location")
 	if len(location) == 0 {
@@ -41,4 +37,20 @@ func (hnd *Handler) GetAllHistoryMoment(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, dataRequests)
+}
+
+func (hnd *Handler) getAgentHistory(ctx *gin.Context) {
+	agent := ctx.Param("agent")
+	if len(agent) == 0 {
+		newErrorJSONResponse(ctx, http.StatusBadRequest, "name is empty")
+		return
+	}
+
+	agentRequestsData, err := hnd.cases.GettingWeatherHistory.GetAgentHistory(agent)
+	if err != nil {
+		newErrorJSONResponse(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	ctx.JSON(http.StatusOK, agentRequestsData)
 }

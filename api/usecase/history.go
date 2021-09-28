@@ -30,3 +30,12 @@ func (cs *HistoryCase) GetHistoryMoment(moment string) ([]models.WeatherRequest,
 
 	return dataCaseResponse, nil
 }
+
+func (cs *HistoryCase) GetAgentHistory(agent string) ([]models.WeatherRequest, error) {
+	agentCaseResponse, err := cs.store.GetAgentHistoryData(agent)
+	if err != nil {
+		return nil, err
+	}
+
+	return agentCaseResponse, nil
+}
