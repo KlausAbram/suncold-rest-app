@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/jmoiron/sqlx"
@@ -34,6 +35,10 @@ func (wst *HistoryStorage) GetHistoryMomentData(moment string) ([]models.Weather
 
 	if err := wst.db.Select(&dataRequests, query, moment); err != nil {
 		return nil, err
+	}
+
+	if dataRequests == nil {
+		return nil, errors.New("list is empty")
 	}
 
 	return dataRequests, nil
