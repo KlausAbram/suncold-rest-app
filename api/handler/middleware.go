@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	authHeader = "Authorisation"
+	authHeader = "Authorization"
 	agentCtx   = "agentId"
 )
 
@@ -31,7 +31,7 @@ func (hnd *Handler) agentIdentity(ctx *gin.Context) {
 	authHead := ctx.GetHeader(authHeader)
 
 	headerSections := strings.Split(authHead, " ")
-	if authHead != "" || len(headerSections) != 2 || headerSections[0] != "Bearer" {
+	if authHead == "" || len(headerSections) != 2 || headerSections[0] != "Bearer" {
 		newErrorJSONResponse(ctx, http.StatusUnauthorized, "invalid auth header")
 		return
 	}

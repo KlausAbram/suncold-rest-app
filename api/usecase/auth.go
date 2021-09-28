@@ -30,7 +30,6 @@ func NewAuthCase(storage *storage.Authorisation) *AuthCase {
 func (ac *AuthCase) CreateAgent(agent models.Agent) (int, error) {
 	agent.Password = HashPassword(agent.Password)
 	return ac.storage.CreateAgent(agent)
-
 }
 
 func (ac *AuthCase) CreateJWT(username, password string) (string, error) {

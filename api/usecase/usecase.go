@@ -13,10 +13,11 @@ type Authorisation interface {
 }
 
 type WeatherSearching interface {
-	GetWeatherCity(agentId int, location string) (*models.WeatherParams, error)
+	GetWeatherCity(agentId int, location string) (*models.WeatherResponse, error)
 }
 
 type GettingWeatherHistory interface {
+	GetHistoryLocation(location string) ([]models.WeatherResponse, error)
 }
 
 type UseCase struct {
@@ -27,7 +28,8 @@ type UseCase struct {
 
 func NewUseCase(adapter *owmadapter.OwmAdapter, store *storage.Storage) *UseCase {
 	return &UseCase{
-		Authorisation:    NewAuthCase(&store.Authorisation),
-		WeatherSearching: NewWeatherCase(adapter, store.WeatherSearching),
+		Authorisation:         NewAuthCase(&store.Authorisation),
+		WeatherSearching:      NewWeatherCase(adapter, store.WeatherSearching),
+		GettingWeatherHistory: NewHistoryCase(store.GettingWeatherHistory),
 	}
 }

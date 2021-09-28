@@ -9,7 +9,7 @@ CREATE TABLE agents
 CREATE TABLE requests
 (
     id          serial       not null unique,
-    author_name varchar(255) not null unique,
+    author_name varchar(255) not null,
     date        date         not null default now(),
     mod         int          not null default 0
 );
@@ -20,8 +20,8 @@ CREATE TABLE states
     location    varchar(255) not null,
     temperature int          not null,
     pressure    int          not null,
-    rain        varchar(255) not null,
-    clouds      varchar(255),
+    rain        int          not null,
+    clouds      int,
     wind        int
 );
 

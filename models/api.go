@@ -8,13 +8,15 @@ const (
 type ModWeatherSetting string
 type Location string
 
-type WeatherParams struct {
-	Temperature float64 `json:"temperature"`
-	Pressure    float64 `json:"pressure"`
-	Rain        float64 `json:"rain"`
-	Cloud       int     `json:"cloud"`
-	WindSpeed   float64 `json:"wind_speed"`
-	Humidity    int     `json:"humidity"`
+type WeatherResponse struct {
+	Temperature int    `json:"temperature" db:"temperature"`
+	Pressure    int    `json:"pressure" db:"pressure"`
+	Rain        int    `json:"rain" db:"rain"`
+	Cloud       int    `json:"cloud" db:"clouds"`
+	WindSpeed   int    `json:"wind_speed" db:"wind"`
+	Humidity    int    `json:"humidity"`
+	Location    string `json:"location" db:"location"`
+	InfId       int    `json:"inf_id" db:"id"`
 }
 
 type WeatherRequest struct {

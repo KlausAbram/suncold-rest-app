@@ -18,15 +18,18 @@ func NewWeatherCase(adapter *owmadapter.OwmAdapter, store storage.WeatherSearchi
 	}
 }
 
-func (cs *WeatherCase) GetWeatherCity(agentId int, location string) (*models.WeatherParams, error) {
-	dataParams, err := cs.adapter.GetOwmWeatherData(location)
+func (cs *WeatherCase) GetWeatherCity(agentId int, location string) (*models.WeatherResponse, error) {
+	dataResp, err := cs.adapter.GetOwmWeatherData(location)
 	if err != nil {
 		return nil, err
 	}
 
-	if err := cs.store.PostWeatherData(agentId, *dataParams); err != nil {
+	infId, err := cs.store.PostWeatherData(agentId, *dataResp)
+	if err != nil {
 		return nil, err
 	}
 
-	return dataParams, nil
+	dataResp.InfId = infId
+
+	return dataResp, nil
 }

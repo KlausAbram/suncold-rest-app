@@ -15,20 +15,26 @@ func NewWeatherKeyStorage() *WeatherKeyStorage {
 	return &WeatherKeyStorage{apiWeatherKey: os.Getenv("OWM_API_KEY")}
 }
 
-func (adp *WeatherKeyStorage) GetOwmWeatherData(location string) (*models.WeatherParams, error) {
-	data, err := openweathermap.NewCurrent(owmSet.Lang, owmSet.Metric, adp.apiWeatherKey)
+func (adp *WeatherKeyStorage) GetOwmWeatherData(location string) (*models.WeatherResponse, error) {
+	client, err := openweathermap.NewCurrent(owmSet.Metric, owmSet.Lang, adp.apiWeatherKey)
 	if err != nil {
 		return nil, err
 	}
 
-	var inputWeather = models.WeatherParams{
-		Temperature: data.Main.Temp,
-		Pressure:    data.Main.Pressure,
-		Rain:        data.Rain.OneH,
-		Cloud:       data.Clouds.All,
-		WindSpeed:   data.Wind.Speed,
-		Humidity:    data.Main.Humidity,
+	if err := client.CurrentByName(location); err != nil {
+		return nil, err
 	}
 
-	return &inputWeather, nil
+	var inputWeather = &models.WeatherResponse{
+		Temperature: int(client.Main.Temp),
+		Pressure:    int(client.Main.Pressure),
+		Rain:        int(client.Rain.OneH),
+		Cloud:       int(client.Clouds.All),
+		WindSpeed:   int(client.Wind.Speed),
+		Humidity:    int(client.Main.Humidity),
+		Location:    location,
+	}
+
+	//return &inputWeather, nil
+	return inputWeather, nil
 }

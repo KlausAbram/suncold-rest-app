@@ -5,7 +5,7 @@ import "github.com/klaus-abram/suncold-restful-app/models"
 var owmSet = struct{ Metric, Lang string }{Metric: "C", Lang: "RU"}
 
 type OwmInterface interface {
-	GetOwmWeatherData(location string) (*models.WeatherParams, error)
+	GetOwmWeatherData(location string) (*models.WeatherResponse, error)
 }
 
 type OwmAdapter struct {

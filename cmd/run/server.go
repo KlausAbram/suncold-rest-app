@@ -2,6 +2,12 @@ package run
 
 import (
 	"context"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+
 	"github.com/jmoiron/sqlx"
 	"github.com/klaus-abram/suncold-restful-app/api/external/owmadapter"
 	"github.com/klaus-abram/suncold-restful-app/api/external/storage"
@@ -9,11 +15,6 @@ import (
 	"github.com/klaus-abram/suncold-restful-app/api/usecase"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
-	"time"
 )
 
 type WeatherServer struct {
@@ -46,6 +47,10 @@ func (srv *WeatherServer) RunToShutdownServer(db *sqlx.DB) {
 	adapter := owmadapter.NewOwmAdapter()
 	cases := usecase.NewUseCase(adapter, store)
 	handlers := handler.NewHandler(cases)
+
+	//Test owm functional - unit unvailable!
+	//data, er := adapter.GetOwmWeatherData("Tula")
+	//logrus.Print(data == nil, " - ", er)
 
 	go func() {
 		if errInit := srv.SunriseWeatherServer(viper.GetString("port"), handlers.InitWeatherRoutes()); errInit != nil {
