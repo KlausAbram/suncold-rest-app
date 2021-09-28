@@ -23,6 +23,7 @@ type WeatherSearching interface {
 
 type GettingWeatherHistory interface {
 	GetHistoryLocationData(location string) ([]models.WeatherResponse, error)
+	GetHistoryMomentData(moment string) ([]models.WeatherRequest, error)
 }
 
 type Storage struct {

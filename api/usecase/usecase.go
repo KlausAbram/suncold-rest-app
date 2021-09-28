@@ -18,6 +18,11 @@ type WeatherSearching interface {
 
 type GettingWeatherHistory interface {
 	GetHistoryLocation(location string) ([]models.WeatherResponse, error)
+	GetHistoryMoment(moment string) ([]models.WeatherRequest, error)
+}
+
+type GettingForecastByDays interface {
+	GetForcastByDays(location string, days int) ([]models.WeatherResponse, error)
 }
 
 type UseCase struct {

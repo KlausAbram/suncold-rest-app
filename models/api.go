@@ -20,10 +20,10 @@ type WeatherResponse struct {
 }
 
 type WeatherRequest struct {
-	Id    int
-	Date  string
-	Mod   string
-	Agent string
+	Id    int    `json:"request_id" db:"id"`
+	Date  string `json:"moment" db:"date"`
+	Mod   string `json:"mod" db:"mod"`
+	Agent string `json:"agent" db:"author_name"`
 }
 
 type DataWeatherState struct {

@@ -38,3 +38,7 @@ func (adp *WeatherKeyStorage) GetOwmWeatherData(location string) (*models.Weathe
 	//return &inputWeather, nil
 	return inputWeather, nil
 }
+
+func (adp *WeatherKeyStorage) GetForecastInfo(location string) ([]models.WeatherResponse, error) {
+	return nil, nil
+}

@@ -2,12 +2,12 @@ package handler
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
-func (hnd *Handler) GetAgentHistory(ctx *gin.Context) {
+func (hnd *Handler) getAgentHistory(ctx *gin.Context) {
 
 }
 
@@ -24,11 +24,21 @@ func (hnd *Handler) GetAllHistoryCity(ctx *gin.Context) {
 		return
 	}
 
-	logrus.Print(dataStatesResponse)
-
 	ctx.JSON(http.StatusOK, dataStatesResponse)
 }
 
 func (hnd *Handler) GetAllHistoryMoment(ctx *gin.Context) {
+	moment := ctx.Param("moment")
+	if _, err := time.Parse("2006-01-02", moment); err != nil {
+		newErrorJSONResponse(ctx, http.StatusBadRequest, err.Error())
+		return
+	}
 
+	dataRequests, err := hnd.cases.GettingWeatherHistory.GetHistoryMoment(moment)
+	if err != nil {
+		newErrorJSONResponse(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	ctx.JSON(http.StatusOK, dataRequests)
 }

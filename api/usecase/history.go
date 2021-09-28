@@ -21,3 +21,12 @@ func (cs *HistoryCase) GetHistoryLocation(location string) ([]models.WeatherResp
 
 	return dataCaseResponse, nil
 }
+
+func (cs *HistoryCase) GetHistoryMoment(moment string) ([]models.WeatherRequest, error) {
+	dataCaseResponse, err := cs.store.GetHistoryMomentData(moment)
+	if err != nil {
+		return nil, err
+	}
+
+	return dataCaseResponse, nil
+}

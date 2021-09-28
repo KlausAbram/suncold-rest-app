@@ -26,3 +26,15 @@ func (wst *HistoryStorage) GetHistoryLocationData(location string) ([]models.Wea
 
 	return dataStates, nil
 }
+
+func (wst *HistoryStorage) GetHistoryMomentData(moment string) ([]models.WeatherRequest, error) {
+	var dataRequests []models.WeatherRequest
+
+	query := fmt.Sprintf("SELECT * FROM %s WHERE date=$1", requestsTable)
+
+	if err := wst.db.Select(&dataRequests, query, moment); err != nil {
+		return nil, err
+	}
+
+	return dataRequests, nil
+}

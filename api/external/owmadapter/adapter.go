@@ -6,6 +6,7 @@ var owmSet = struct{ Metric, Lang string }{Metric: "C", Lang: "RU"}
 
 type OwmInterface interface {
 	GetOwmWeatherData(location string) (*models.WeatherResponse, error)
+	GetForecastInfo(location string) ([]models.WeatherResponse, error)
 }
 
 type OwmAdapter struct {
