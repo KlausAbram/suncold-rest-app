@@ -7,11 +7,24 @@ import (
 	"github.com/klaus-abram/suncold-restful-app/models"
 )
 
-func (hnd *Handler) SignUp(ctx *gin.Context) {
+// @Summary SignUp
+// @Tags auth
+// @Description sign-up agent
+// @ID create-account
+// @Accept  json
+// @Produce  json
+// @Param agent body models.Agent true "agent-info"
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorJSONResponse
+// @Failure 500 {object} errorJSONResponse
+// @Failure default {object} errorJSONResponse
+// @Router /auth/sign-up [post]
+
+func (hnd *Handler) signUp(ctx *gin.Context) {
 	var agent models.Agent
 
 	if err := ctx.BindJSON(&agent); err != nil {
-		newErrorJSONResponse(ctx, http.StatusBadRequest, "invalid request body")
+		newErrorJSONResponse(ctx, http.StatusBadRequest, "invalid request data")
 		return
 	}
 
@@ -26,11 +39,24 @@ func (hnd *Handler) SignUp(ctx *gin.Context) {
 	})
 }
 
-func (hnd *Handler) SignIn(ctx *gin.Context) {
+// @Summary SignIn
+// @Tags auth
+// @Description authentication
+// @ID login
+// @Accept  json
+// @Produce  json
+// @Param requestData body handler.equestSignInData true "credentials"
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorJSONResponse
+// @Failure 500 {object} errorJSONResponse
+// @Failure default {object} errorJSONResponse
+// @Router /auth/sign-in [post]
+
+func (hnd *Handler) signIn(ctx *gin.Context) {
 	var requestData requestSignInData
 
 	if err := ctx.BindJSON(&requestData); err != nil {
-		newErrorJSONResponse(ctx, http.StatusBadRequest, err.Error())
+		newErrorJSONResponse(ctx, http.StatusBadRequest, "invalid request data")
 		return
 	}
 

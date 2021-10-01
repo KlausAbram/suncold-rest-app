@@ -6,6 +6,8 @@ import (
 	"github.com/klaus-abram/suncold-restful-app/models"
 )
 
+//go:generate mockgen -source=usecase.go -destination=mocks/mock.go
+
 type Authorisation interface {
 	CreateAgent(agent models.Agent) (int, error)
 	CreateJWT(agentname, password string) (string, error)

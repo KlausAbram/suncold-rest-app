@@ -3,6 +3,8 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/klaus-abram/suncold-restful-app/api/usecase"
+	//swaggerFiles "github.com/swaggo/files"
+	//ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type Handler struct {
@@ -18,8 +20,8 @@ func (hnd *Handler) InitWeatherRoutes() *gin.Engine {
 
 	authWeather := weatherRouter.Group("/auth")
 	{
-		authWeather.POST("/sign-up", hnd.SignUp)
-		authWeather.POST("/sign-in", hnd.SignIn)
+		authWeather.POST("/sign-up", hnd.signUp)
+		authWeather.POST("/sign-in", hnd.signIn)
 	}
 
 	api := weatherRouter.Group("/api", hnd.agentIdentity)
@@ -41,5 +43,6 @@ func (hnd *Handler) InitWeatherRoutes() *gin.Engine {
 		api.GET("/requests/:agent", hnd.getAgentHistory)
 	}
 
+	//weatherRouter.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return weatherRouter
 }

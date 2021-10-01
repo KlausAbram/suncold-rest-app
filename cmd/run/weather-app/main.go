@@ -10,6 +10,17 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// @title Suncold Resful App
+// @version 0.1
+// @description API Documentation for the Suncold Restful App
+
+// @host localhost:8000
+// @BasePath /
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+
 func main() {
 
 	if err := run.SetLoggingConfig(); err != nil {
