@@ -36,14 +36,9 @@ func (hnd *Handler) agentIdentity(ctx *gin.Context) {
 		return
 	}
 
-	if len(headerSections[1]) == 0 {
-		newErrorJSONResponse(ctx, http.StatusUnauthorized, "token is empty")
-		return
-	}
-
 	agentId, err := hnd.cases.Authorisation.ParseJWT(headerSections[1])
 	if err != nil {
-		newErrorJSONResponse(ctx, http.StatusUnauthorized, err.Error())
+		newErrorJSONResponse(ctx, http.StatusUnauthorized, "invalid token")
 		return
 	}
 

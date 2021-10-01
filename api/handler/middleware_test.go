@@ -10,7 +10,6 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/klaus-abram/suncold-restful-app/api/usecase"
 	casemocks "github.com/klaus-abram/suncold-restful-app/api/usecase/mocks"
-	mock_usecase "github.com/klaus-abram/suncold-restful-app/api/usecase/mocks"
 )
 
 func TestHandler_agentIdentity(t *testing.T) {
@@ -82,7 +81,7 @@ func TestHandler_agentIdentity(t *testing.T) {
 			c := gomock.NewController(t)
 			defer c.Finish()
 
-			repo := mock_usecase.NewMockAuthorisation(c)
+			repo := casemocks.NewMockAuthorisation(c)
 			test.mockBehavior(repo, test.token)
 
 			ucase := &usecase.UseCase{Authorisation: repo}
