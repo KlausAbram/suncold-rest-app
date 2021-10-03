@@ -4,9 +4,6 @@
 build-server: 
 	go mod download && CGO_ENABLED=0 GOOS=linux go build -o ./.bin/app ./cmd/weather-app/main.go
 
-stop-todo-db:
-	docker stop todo-rest-api_db_1
-
 run-db:
 	docker run --name=weather-db -e POSTGRES_PASSWORD=klaus -p 5436:5432 -d --rm postgres
 
