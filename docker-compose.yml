@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  app:
+    build: ./
+    command: ./wait-for-postgres.sh db ./app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_PASSWORD=klaus
+
+  db:
+    restart: always
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=klaus
+    ports:
+      - "5436:5432"

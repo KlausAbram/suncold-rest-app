@@ -1,16 +1,16 @@
 package run
 
 import (
+	"os"
+
 	"github.com/jmoiron/sqlx"
-	"github.com/klaus-abram/suncold-restful-app/api/external/storage"
 )
 
 // InitPostgresStorage make in main
 func InitPostgresStorage() (*sqlx.DB, error) {
-
-	db, errDB := storage.NewPostgresStorage()
-	if errDB != nil {
-		return nil, errDB
+	db, err := sqlx.Connect("postgres", os.Getenv("CONNECT_STRING"))
+	if err != nil {
+		return nil, err
 	}
 
 	return db, nil

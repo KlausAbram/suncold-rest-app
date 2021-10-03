@@ -1,0 +1,22 @@
+version: '3.4' 
+
+services:
+  app: 
+    image: weather-app 
+    container_name: "weather-app" 
+    command: ./script/wait-for-postgres.sh db
+    build: ./ 
+    ports: 
+      - 8000:8000
+    depends_on:
+      - db 
+    env_file:
+      - .env
+
+  db:
+    restart: always
+    image: postgres:latest
+    ports: 
+      - 5436:5432 
+
+    
