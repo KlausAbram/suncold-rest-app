@@ -48,10 +48,6 @@ func (srv *WeatherServer) RunToShutdownServer(db *sqlx.DB) {
 	cases := usecase.NewUseCase(adapter, store)
 	handlers := handler.NewHandler(cases)
 
-	//Test owm functional - unit unvailable!
-	//data, er := adapter.GetOwmWeatherData("Tula")
-	//logrus.Print(data == nil, " - ", er)
-
 	go func() {
 		if errInit := srv.SunriseWeatherServer(viper.GetString("port"), handlers.InitWeatherRoutes()); errInit != nil {
 			logrus.Fatalf("error occured running http-server %s", errInit.Error())

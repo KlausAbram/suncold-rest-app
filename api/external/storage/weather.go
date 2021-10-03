@@ -26,7 +26,7 @@ func (wst *WeatherStorage) PostWeatherData(agentId int, input models.WeatherResp
 		agentName string
 	)
 
-	queryAgent := fmt.Sprintf("SELECT ag.agent_name FROM %s ag WHERE ag.id=$1", agentsTable)
+	queryAgent := fmt.Sprintf("SELECT (agent_name) FROM %s WHERE id=$1", agentsTable)
 	err = wst.db.Get(&agentName, queryAgent, agentId)
 	if err != nil {
 		tx.Rollback()
