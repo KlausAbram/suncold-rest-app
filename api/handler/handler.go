@@ -43,6 +43,11 @@ func (hnd *Handler) InitWeatherRoutes() *gin.Engine {
 		api.GET("/requests/:agent", hnd.getAgentHistory)
 	}
 
+	csh := weatherRouter.Group("/cash")
+	{
+		csh.GET("/requests", hnd.GetCashedRequests)
+	}
+
 	//weatherRouter.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return weatherRouter
 }

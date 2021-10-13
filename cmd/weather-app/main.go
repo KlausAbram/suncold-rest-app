@@ -1,6 +1,8 @@
 package main
 
 import (
+	"context"
+
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/klaus-abram/suncold-restful-app/cmd/run"
@@ -23,6 +25,9 @@ import (
 
 func main() {
 
+	var ctx = context.Background()
+
+
 	if err := run.SetLoggingConfig(); err != nil {
 		logrus.Fatalf("error with setting configs and format: [%s]", err.Error())
 	}
@@ -40,5 +45,5 @@ func main() {
 	serv := run.CreateWeatherServer()
 
 	//run server and shutdown in time it needs
-	serv.RunToShutdownServer(db)
+	serv.RunToShutdownServer(db, ctx)
 }

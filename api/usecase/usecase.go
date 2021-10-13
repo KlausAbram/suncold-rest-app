@@ -1,6 +1,9 @@
 package usecase
 
 import (
+	"context"
+
+	"github.com/klaus-abram/suncold-restful-app/api/external/cash"
 	"github.com/klaus-abram/suncold-restful-app/api/external/owmadapter"
 	"github.com/klaus-abram/suncold-restful-app/api/external/storage"
 	"github.com/klaus-abram/suncold-restful-app/models"
@@ -28,16 +31,22 @@ type GettingForecastByDays interface {
 	GetForcastByDays(location string, days int) ([]models.WeatherResponse, error)
 }
 
+type GettingCashedData interface {
+	GetCashedRequests(ctx context.Context) (*[]models.WeatherRequest, error)
+}
+
 type UseCase struct {
 	Authorisation
 	WeatherSearching
 	GettingWeatherHistory
+	GettingCashedData
 }
 
-func NewUseCase(adapter *owmadapter.OwmAdapter, store *storage.Storage) *UseCase {
+func NewUseCase(adapter *owmadapter.OwmAdapter, store *storage.Storage, rdb *cash.CashStorage) *UseCase {
 	return &UseCase{
 		Authorisation:         NewAuthCase(&store.Authorisation),
-		WeatherSearching:      NewWeatherCase(adapter, store.WeatherSearching),
+		WeatherSearching:      NewWeatherCase(adapter, store.WeatherSearching, rdb),
 		GettingWeatherHistory: NewHistoryCase(store.GettingWeatherHistory),
+		GettingCashedData:     NewCashStorage(rdb),
 	}
 }

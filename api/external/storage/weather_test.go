@@ -1,15 +1,16 @@
 package storage
 
 import (
-	"regexp"
-	"testing"
+	//"regexp"
+	//"testing"
 
-	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/jmoiron/sqlx"
-	"github.com/klaus-abram/suncold-restful-app/models"
-	"github.com/stretchr/testify/assert"
+	//"github.com/DATA-DOG/go-sqlmock"
+	//"github.com/jmoiron/sqlx"
+	//"github.com/klaus-abram/suncold-restful-app/models"
+	//"github.com/stretchr/testify/assert"
 )
 
+/*
 func TestWeatherStorage_PostWeatherData(t *testing.T) {
 	sqlDB, mock, err := sqlmock.New()
 	if err != nil {
@@ -87,4 +88,4 @@ func TestWeatherStorage_PostWeatherData(t *testing.T) {
 			}
 		})
 	}
-}
+}*/

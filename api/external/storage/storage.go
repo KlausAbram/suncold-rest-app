@@ -18,7 +18,7 @@ type Authorisation interface {
 }
 
 type WeatherSearching interface {
-	PostWeatherData(agentId int, input models.WeatherResponse) (int, error)
+	PostWeatherData(agentId int, input models.WeatherResponse) (int, string, error)
 }
 
 type GettingWeatherHistory interface {

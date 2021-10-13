@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/jmoiron/sqlx"
+	"github.com/klaus-abram/suncold-restful-app/api/external/cash"
 	"github.com/klaus-abram/suncold-restful-app/api/external/owmadapter"
 	"github.com/klaus-abram/suncold-restful-app/api/external/storage"
 	"github.com/klaus-abram/suncold-restful-app/api/handler"
@@ -41,11 +42,17 @@ func (srv *WeatherServer) SunsetWeatherServer(ctx context.Context) error {
 	return srv.server.Shutdown(ctx)
 }
 
-func (srv *WeatherServer) RunToShutdownServer(db *sqlx.DB) {
+func (srv *WeatherServer) RunToShutdownServer(db *sqlx.DB, ctx context.Context) {
 
 	store := storage.NewStorage(db)
 	adapter := owmadapter.NewOwmAdapter()
-	cases := usecase.NewUseCase(adapter, store)
+
+	rdb, err := cash.NewCashStorage(os.Getenv("REDIS_PORT"), ctx)
+	if err != nil {
+		logrus.Fatalf("Error with init cash-storage - [%s]", err.Error())
+	}
+	
+	cases := usecase.NewUseCase(adapter, store, rdb)
 	handlers := handler.NewHandler(cases)
 
 	go func() {
@@ -62,7 +69,7 @@ func (srv *WeatherServer) RunToShutdownServer(db *sqlx.DB) {
 
 	logrus.Print("weather-restful-app - shutting down")
 
-	if errShut := srv.SunsetWeatherServer(context.Background()); errShut != nil {
+	if errShut := srv.SunsetWeatherServer(ctx); errShut != nil {
 		logrus.Errorf("error occured shutdown http-server %s", errShut.Error())
 	}
 

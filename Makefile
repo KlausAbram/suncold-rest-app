@@ -14,4 +14,7 @@ exec-db:
 	docker exec -it weather-db  /bin/bash
 
 run-server: 
-	go run cmd/weather-app/main.go
+	go run cmd/weather-app/main.go 
+
+run-cash:
+	docker run --name=redisdb -p 6379:6379 --rm redis 
