@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/klaus-abram/suncold-restful-app/api/external/cash"
+	"github.com/klaus-abram/suncold-restful-app/api/external/cashe"
 	"github.com/klaus-abram/suncold-restful-app/api/external/owmadapter"
 	"github.com/klaus-abram/suncold-restful-app/api/external/storage"
 	"github.com/klaus-abram/suncold-restful-app/api/handler"
@@ -47,7 +47,7 @@ func (srv *WeatherServer) RunToShutdownServer(db *sqlx.DB, ctx context.Context) 
 	store := storage.NewStorage(db)
 	adapter := owmadapter.NewOwmAdapter()
 
-	rdb, err := cash.NewCashStorage(os.Getenv("REDIS_PORT"), ctx)
+	rdb, err := cashe.NewCasheStorage(os.Getenv("REDIS_PORT"), ctx)
 	if err != nil {
 		logrus.Fatalf("Error with init cash-storage - [%s]", err.Error())
 	}

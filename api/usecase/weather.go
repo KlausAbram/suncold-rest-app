@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/klaus-abram/suncold-restful-app/api/external/cash"
+	"github.com/klaus-abram/suncold-restful-app/api/external/cashe"
 	"github.com/klaus-abram/suncold-restful-app/api/external/owmadapter"
 	"github.com/klaus-abram/suncold-restful-app/api/external/storage"
 	"github.com/klaus-abram/suncold-restful-app/models"
@@ -13,10 +13,10 @@ import (
 type WeatherCase struct {
 	adapter *owmadapter.OwmAdapter
 	store   storage.WeatherSearching
-	cash    *cash.CashStorage
+	cash    *cashe.CasheStorage
 }
 
-func NewWeatherCase(adapter *owmadapter.OwmAdapter, store storage.WeatherSearching, rdb *cash.CashStorage) *WeatherCase {
+func NewWeatherCase(adapter *owmadapter.OwmAdapter, store storage.WeatherSearching, rdb *cashe.CasheStorage) *WeatherCase {
 	return &WeatherCase{
 		adapter: adapter,
 		store:   store,

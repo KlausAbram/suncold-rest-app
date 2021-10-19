@@ -3,7 +3,7 @@ package usecase
 import (
 	"context"
 
-	"github.com/klaus-abram/suncold-restful-app/api/external/cash"
+	"github.com/klaus-abram/suncold-restful-app/api/external/cashe"
 	"github.com/klaus-abram/suncold-restful-app/api/external/owmadapter"
 	"github.com/klaus-abram/suncold-restful-app/api/external/storage"
 	"github.com/klaus-abram/suncold-restful-app/models"
@@ -42,11 +42,11 @@ type UseCase struct {
 	GettingCashedData
 }
 
-func NewUseCase(adapter *owmadapter.OwmAdapter, store *storage.Storage, rdb *cash.CashStorage) *UseCase {
+func NewUseCase(adapter *owmadapter.OwmAdapter, store *storage.Storage, rdb *cashe.CasheStorage) *UseCase {
 	return &UseCase{
 		Authorisation:         NewAuthCase(&store.Authorisation),
 		WeatherSearching:      NewWeatherCase(adapter, store.WeatherSearching, rdb),
 		GettingWeatherHistory: NewHistoryCase(store.GettingWeatherHistory),
-		GettingCashedData:     NewCashStorage(rdb),
+		GettingCashedData:     NewCasheStorage(rdb),
 	}
 }

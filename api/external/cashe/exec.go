@@ -1,4 +1,4 @@
-package cash
+package cashe
 
 import (
 	"context"
@@ -17,7 +17,7 @@ var (
 	ErrUnmarshalCash = "eror with parsing json to model - [%s]"
 )
 
-func (csh *CashStorage) SetRequestToCash(req *models.WeatherRequest, ctx context.Context) error {
+func (csh *CasheStorage) SetRequestToCash(req *models.WeatherRequest, ctx context.Context) error {
 	jsonVal, err := json.Marshal(*req)
 	if err != nil {
 		return err
@@ -36,7 +36,7 @@ func (csh *CashStorage) SetRequestToCash(req *models.WeatherRequest, ctx context
 	return nil
 }
 
-func (csh *CashStorage) GetAllCashedRequests(ctx context.Context) (*[]models.WeatherRequest, error) {
+func (csh *CasheStorage) GetAllCashedRequests(ctx context.Context) (*[]models.WeatherRequest, error) {
 	var input []models.WeatherRequest
 
 	logrus.Printf(StartGetSign)

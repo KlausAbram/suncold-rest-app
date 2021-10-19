@@ -1,4 +1,4 @@
-package cash
+package cashe
 
 import (
 	"context"
@@ -15,11 +15,11 @@ var (
 	FinSetSign   = "SET-CASH-[%s]"
 )
 
-type CashStorage struct {
+type CasheStorage struct {
 	Client *redis.Client
 }
 
-func NewCashStorage(port string, ctx context.Context) (*CashStorage, error) {
+func NewCasheStorage(port string, ctx context.Context) (*CasheStorage, error) {
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     "localhost:" + port,
 		Password: "",
@@ -30,7 +30,7 @@ func NewCashStorage(port string, ctx context.Context) (*CashStorage, error) {
 		return nil, err
 	}
 
-	return &CashStorage{
+	return &CasheStorage{
 		Client: rdb,
 	}, nil
 }
